@@ -1,26 +1,13 @@
 os:
   - linux
   - osx
-  
-language: node_js
-node_js:
-- '4'
-- '5'
-- '6'
-- '7'
 
-matrix:
-  include:
-    - os: linux
-      dist: trusty
-      sudo: required
-    - os: osx
-      osx_image: xcode7.2
-      
-      
 cache:
   directories:
-    - node_modules
+    - $HOME/node_modules
+    - $HOME/.yarn-cache
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
 after_script:
@@ -29,3 +16,40 @@ after_script:
 notifications:
   slack: leduong:8FHnajypcfOykiQS6Hn6QBB5
 repo_token: RowsKbZ85YsRTAjF5d50i4rkAd3FArlu8
+
+
+matrix:
+  include:
+    - language: android
+      os: linux
+      jdk: oraclejdk8
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      sudo: false
+      node_js:
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+      before_install:
+        - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+      android:
+        components:
+          - build-tools-23.0.1
+          - android-23
+      script:
+        - cd android && ./gradlew assembleDebug && ./gradlew assembleRelease
+    - language: objective-c
+      os: osx
+      osx_image: xcode8.2
+      node_js: false
+      before_install:
+        - nvm install 6
+        - node --version
+      xcode_project: ios/myApp.xcodeproj
+      xcode_scheme: ios/myAppTests
+      script:
+        - cd ios
+        - xcodebuild -scheme myApp -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+        - travis_retry xctool run-tests -scheme myApp -sdk iphonesimulator -launch-timeout 90  ONLY_ACTIVE_ARCH=NO
