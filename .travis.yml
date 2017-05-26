@@ -19,7 +19,6 @@ notifications:
   slack: leduong:8FHnajypcfOykiQS6Hn6QBB5
 repo_token: RowsKbZ85YsRTAjF5d50i4rkAd3FArlu8
 
-
 matrix:
   include:
     - language: android
@@ -40,8 +39,13 @@ matrix:
         components:
           - build-tools-23.0.1
           - android-23
+          - extra-android-m2repository
+          - extra-google-google_play_services
+          - extra-google-m2repository
+          - addon-google_apis-google-16
       script:
         - cd android && ./gradlew assembleDebug && ./gradlew assembleRelease
+        
     - language: objective-c
       os: osx
       osx_image: xcode8.2
