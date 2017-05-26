@@ -16,14 +16,14 @@ import {
 
 import LoginForm from './components/LoginForm';
 
-export default class myApp extends Component {
+export default class Me2 extends Component {
   render() {
     return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <View style={styles.wrapper}>
-            <Image source={require('../img/d.png')} />
+            <Image source={require('../img/me2.png')} />
             <Text style={styles.welcome}>
-              Welcome to My App!
+              Welcome back! Let's see what's in store for you today. Go ahead and log into your account.
             </Text>
           </View>
           <View>
@@ -40,7 +40,7 @@ export default class myApp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(39, 174, 96,1.0)',
+    backgroundColor: 'rgb(42,47,56)',
   },
   wrapper: {
     flexGrow: 1,
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   welcome: {
-    fontSize: 24,
-    textAlign: 'center',
+    fontSize: 18,
+    padding: 20,
     margin: 10,
     color: '#fff'
   },
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('myApp', () => myApp);
+AppRegistry.registerComponent('Me2', () => Me2);
