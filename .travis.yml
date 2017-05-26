@@ -6,7 +6,7 @@ sudo: false
 
 cache:
   directories:
-    - $HOME/node_modules
+    - node_modules
     - $HOME/.yarn-cache
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
